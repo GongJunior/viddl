@@ -15,3 +15,6 @@ ffmpeg/
 # data
 vids/
 secrets/
+
+# fiddle
+jnk.py
