@@ -50,7 +50,7 @@ def run_cli(args: list) -> None:
 
     match namespace.command:
         case "dl":
-            dllib.download_video(namespace.urls, namespace.output, namespace.test)
+            dllib.DL(namespace.urls, namespace.output, namespace.test).download_video()
         case "mv":
             print(f"Moving from {namespace.from_path} to {namespace.to_path}")
         case _:
