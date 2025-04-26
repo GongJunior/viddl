@@ -39,9 +39,10 @@ def download_video(urls: list[str], output_option: str, run_as_test: bool) -> No
         return
 
     ydl_opts = {
+        "ignoreerrors" : "only_download",
         "paths": {"home": "./vids"},
         "ffmpeg_location": get_ffmpeg_path(),
-        "force_generic_extractor": ["generic", "default"],
+        #"force_generic_extractor": ["generic", "default"],
     }
 
     with YoutubeDL(ydl_opts) as ydl:
@@ -52,7 +53,7 @@ def download_video(urls: list[str], output_option: str, run_as_test: bool) -> No
             #output_options[output_option]()
 
         except Exception as e:
-            print(f"{datetime.datetime.now()} - An error occurred: {e}")
+            print(f"{datetime.datetime.now()} - An post-processing error occurred: {e}")
 
 
 def dl_test(urls: list[str], output_option: str) -> None:
