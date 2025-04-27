@@ -18,4 +18,3 @@ Should do the following:
 - add logging to keep track download info
 
 ## Notes
-- may need to toggle generic extractor for certain sites if issues arise
