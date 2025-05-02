@@ -15,6 +15,5 @@ Should do the following:
 - add cookie access for specific sites
     - download firefox
     - use cookiesfrombrowser
-- add logging to keep track download info
 
 ## Notes
