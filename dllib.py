@@ -1,9 +1,9 @@
 from pathlib import Path
 from urllib.parse import urlparse
-import json
 import datetime
 from yt_dlp import YoutubeDL
 from yt_dlp.networking.impersonate import ImpersonateTarget
+import appdata
 
 
 def move_to_onedrive():
@@ -47,7 +47,7 @@ class DL:
         self.urls = urls
         self.output_option = output_option
         self.run_as_test = run_as_test
-        self.appsettings: dict = self._get_appsettings()
+        self.appsettings: dict = appdata.get_appsettings()
         self.ffmpeg_path = self._get_ffmpeg_path()
 
     def download_video(self) -> None:
@@ -62,7 +62,7 @@ class DL:
         if standard_urls:
             print(f"\n{datetime.datetime.now()} - Running standard extractor urls")
             self.dl_vids_w_options(standard_urls, self._get_dl_options())
-        
+
         print(f"\n{datetime.datetime.now()} - Finished attempting urls")
 
     def dl_vids_w_options(self, urls: list[str], options: dict) -> None:
@@ -72,14 +72,7 @@ class DL:
                 # output_options[output_option]()
 
             except Exception as e:
-                print(
-                    f"{datetime.datetime.now()} - An processing error occurred: {e}"
-                )
-
-    def _get_appsettings(self) -> dict:
-        with open("./secrets/appsettings.json", "r", encoding="utf-8") as f:
-            data = json.load(f)
-            return data
+                print(f"{datetime.datetime.now()} - An processing error occurred: {e}")
 
     def _get_ffmpeg_path(self) -> str:
         expected_files = set(["ffmpeg.exe", "ffplay.exe", "ffprobe.exe"])
@@ -135,7 +128,7 @@ class DL:
                 handled_urls += special_urls
                 options = special_cases[special_case]()
                 self.dl_vids_w_options(special_urls, options)
-            
+
         return handled_urls
 
     def _dl_test(self, urls: list[str], output_option: str) -> None:
