@@ -105,14 +105,21 @@ class DL:
             optns["force_generic_extractor"] = ["generic", "default"]
             return optns
 
-        def get_simpole_impersonate_options() -> dict:
+        def get_simple_impersonate_options() -> dict:
             optns = self._get_dl_options()
             optns["impersonate"] = ImpersonateTarget(client="edge", os="windows")
+            return optns
+        
+        def get_simple_cookie_options() -> dict:
+            optns = self._get_dl_options()
+            tuple_parts = self.appsettings["cookie_templates"]["generic"]
+            optns["cookiesfrombrowser"] = tuple([None if p == "" else p for p in tuple_parts])
             return optns
 
         special_cases = {
             "forced_generic_sites": get_forced_generic_options,
-            "simple_impersonate_sites": get_simpole_impersonate_options,
+            "simple_impersonate_sites": get_simple_impersonate_options,
+            "cookie_sites": get_simple_cookie_options,
         }
         handled_urls = []
 
