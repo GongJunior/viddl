@@ -54,6 +54,10 @@ def get_appsettings() -> dict:
         return data
 
 
+def get_local_storage() -> str:
+    return get_appsettings().get("local_vid_storage", "./vids")
+
+
 def get_db(with_echo: bool = False) -> Engine:
     from sqlalchemy import create_engine
 

@@ -42,13 +42,13 @@ output_options = {"local": "./vids", "onedrive": move_to_onedrive, "3b": move_to
 class DL:
     def __init__(self, urls: list[str], output_option: str, run_as_test: bool) -> None:
         self._ignore_errors = "only_download"
-        self._local_storage = "./vids"
 
         self.urls = urls
         self.output_option = output_option
         self.run_as_test = run_as_test
         self.appsettings: dict = appdata.get_appsettings()
         self.ffmpeg_path = self._get_ffmpeg_path()
+        self._local_storage = self.appsettings.get("local_vid_storage", "./vids")
 
     def download_video(self) -> None:
         print(f"{datetime.datetime.now()} - Stating downloads...")
